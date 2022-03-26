@@ -17,7 +17,7 @@ const HomePage = () => (
   //   <Directory />
   // </div>
   <>
-  <Container>
+  <div>
 				<Row>
 					{/* <Navbar /> */}
           <Carousel />
@@ -25,7 +25,7 @@ const HomePage = () => (
           <Rooms />
           <ContactUs />
 				</Row>
-			</Container>
+			</div>
   </>
 
 

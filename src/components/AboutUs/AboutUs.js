@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import styled from 'styled-components';
-import img from '../../assets/aboutus.jpeg'
+import img from '../../assets/aboutus2.jpg'
 import img1 from '../../assets/logo.jpeg'
 
 
@@ -20,7 +20,7 @@ const aboutUs = () => {
 				<Col md={{ span: 6 }}>
 					<img
 						// className="d-block w-100"
-						src={img1}
+						src={img}
 						alt="First slide"
 						fluid="true"
 						style={{padding:'10px',height:'300px',width:'250px'}}

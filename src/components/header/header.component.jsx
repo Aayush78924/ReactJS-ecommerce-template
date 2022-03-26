@@ -30,16 +30,17 @@ return (
       {/* <Link className="option" to="/shop">
         CONTACT
       </Link> */}
+      <div style={{display:'flex'}}>
       {currentUser ? (
-        <div className="option" onClick={() => auth.signOut()}>
+        <div className="option" style={{color:'white'}} onClick={() => auth.signOut()}>
           SIGN OUT
         </div>
       ) : (
-        <Link className="option" to="/signin">
+        <Link className="option" style={{color:'white'}} to="/signin">
           SIGN IN
         </Link>
       )}
-      <CartIcon />
+      <CartIcon style={{margin:'5px'}} />
     </div>
     {
         hidden ? null:
@@ -47,6 +48,7 @@ return (
     }
         {/* <p className= 'king'>{currentUser.displayName}</p> */}
         {currentUser!=null ?(<p className= 'king'>{currentUser.displayName}</p>):null}
+  </div>
   </div>)
 }
 
