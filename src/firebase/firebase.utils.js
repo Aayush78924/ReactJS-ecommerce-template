@@ -1,17 +1,42 @@
+// import { initializeApp } from "firebase/app";
+// import { getFirestore } from "firebase/firestore";
+// import { getAuth ,Google} from "firebase/auth";
+// import { getStorage } from "firebase/storage";
+// import { collection, doc, setDoc,getDoc } from "firebase/firestore";
+// import "firebase/auth"; 
+// // import firebase from 'firebase/app';
+// import 'firebase/firestore';
+// import 'firebase/auth';
+// // import   firebase from "firebase/app"
+
+//import as per 7.6.1
 import firebase from 'firebase/app';
+// import { getFirestore } from "firebase/fireStore";
 import 'firebase/firestore';
 import 'firebase/auth';
-
 const config = {
-  apiKey: "AIzaSyCZ1veQMvQwwkb1ka0-zVm2nrk7OgiyDmU",
-  authDomain: "react-ecommerce-caf86.firebaseapp.com",
-  databaseURL: "https://react-ecommerce-caf86.firebaseio.com",
-  projectId: "react-ecommerce-caf86",
-  storageBucket: "react-ecommerce-caf86.appspot.com",
-  messagingSenderId: "522930649756",
-  appId: "1:522930649756:web:f062c083dee844c8440b59",
-  measurementId: "G-M8X1HNCPV0"
-};
+	apiKey: "AIzaSyDjV_Tf0Be4VOHFAX3GvHJF9i-p4f1t_WY",
+	authDomain: "e-commerce-f4064.firebaseapp.com",
+	projectId: "e-commerce-f4064",
+
+	storageBucket: "e-commerce-f4064.appspot.com",
+
+}
+
+const app=firebase.initializeApp(config);
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+// export const db = firestore.getFirestore(app);
+const provider = new firebase.auth.GoogleAuthProvider();
+provider.setCustomParameters({prompt: 'select_account'});
+export const signInWithGoogle = () => auth.signInWithPopup(provider);
+
+export default firebase;
+
+;
+
+
+
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
 
@@ -39,13 +64,13 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 }
 
-firebase.initializeApp(config);
+// firebase.initializeApp(config);
 
-export const auth = firebase.auth();
-export const firestore = firebase.firestore();
+// export const auth = firebase.auth();
+// export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({prompt: 'select_account'});
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+// const provider = GoogleAuthProvider();
+// provider.setCustomParameters({prompt: 'select_account'});
+// export const signInWithGoogle = () => auth.signInWithPopup(auth,provider);
 
-export default firebase;
+// export default firebase ;

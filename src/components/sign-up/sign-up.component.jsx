@@ -1,5 +1,6 @@
 import React from 'react';
 import './sign-up.styles.scss';
+import { toast } from "react-toastify";
 
 import FormInput from '../form-input/form-input.component.jsx';
 import CustomButton from '../custom-button/custom-button.component.jsx';
@@ -47,6 +48,7 @@ class SignUp extends React.Component{
 
         }catch(error){
             console.error(error);
+            alert(error.message)
         }
     }
 
