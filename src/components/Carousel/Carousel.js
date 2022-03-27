@@ -52,7 +52,7 @@ const carousel = () => {
 		// 		/>
 		// 	</CarouselItemDiv>
 		// </CarouselDiv>
-		<Carousel style={{width:'100%'}}>
+		<Carousel style={{width:'100%',margin:'10px'}}>
   <Carousel.Item style={{width:'100%'}}>
     <img
       className="d-block w-100"

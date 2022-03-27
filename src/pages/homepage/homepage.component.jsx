@@ -6,6 +6,8 @@ import Carousel from "../../components/Carousel/Carousel";
 import AboutUs from "../../components/AboutUs/AboutUs";
 import Rooms from "../../components/Rooms/Rooms";
 import ContactUs from "../../components/ContactUs/ContactUs";
+// import AnimatedComponent from "../components/Animated-component/AnimatedComponent";
+import AnimatedComponent from "../../components/Animated-component/AmimatedComponent"
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 // import Directory from '../../components/directory/directory.component'
@@ -20,7 +22,9 @@ const HomePage = () => (
   <div style={{width:'100%'}}>
 				<Row>
 					{/* <Navbar /> */}
+          
           <Carousel />
+          <AnimatedComponent/>
           <AboutUs />
           <Rooms />
           <ContactUs />

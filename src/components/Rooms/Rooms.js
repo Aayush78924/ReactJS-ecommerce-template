@@ -6,25 +6,36 @@ import Col from "react-bootstrap/Col";
 import { FixedSizeGrid as Grid } from "react-window";
 import styled from 'styled-components';
 import "bootstrap/dist/css/bootstrap.min.css";
-import img from '../../assets/Product1.PNG'
+import img1 from '../../assets/SpiceProduct1.jpg'
+import img2 from '../../assets/SpiceProduct2.jpg'
+import img3 from '../../assets/SpiceProduct3.jpg'
+import img4 from '../../assets/SpiceProduct4.jpg'
+import img5 from '../../assets/SpiceProduct5.jpg'
+import img6 from '../../assets/SpiceProduct6.jpg'
+import img7 from '../../assets/SpiceProduct7.jpg'
+import img8 from '../../assets/SpiceProduct8.jpg'
+import img9 from '../../assets/SpiceProduct9.jpg'
+import img10 from '../../assets/SpiceProduct10.jpeg'
+
+
 
 
 const Rooms = () => {
 	const imgsArray = [
-		[
-			{ src: img, alt: "Deluxe Double Room" },
-			{ src: img, alt: "Deluxe Single Room" },
-			{ src: img, alt: "Deluxe Twin Room" }
-		],
-		[
-			{ src: img, alt: "Double Room" },
-			{ src: img, alt: "Single Room" },
-			{ src: img, alt: "Twin Room" }
-		],
+			{ src: img1, alt: "Deluxe Double Room" },
+			{ src: img2, alt: "Deluxe Single Room" },
+			{ src: img3, alt: "Deluxe Twin Room" },
+			{ src: img4, alt: "Double Room" },
+			{ src: img5, alt: "Single Room" },
+			{ src: img6, alt: "Twin Room" },
+			{ src: img7, alt: "Deluxe Double Room" },
+			{ src: img8, alt: "Deluxe Single Room" },
+			{ src: img9, alt: "Deluxe Twin Room" },
+			{ src: img10, alt: "Deluxe Twin Room" }
+
+		
 		// [
-		// 	{ src: img, alt: "Deluxe Double Room" },
-		// 	{ src: img, alt: "Deluxe Single Room" },
-		// 	{ src: '../../assets/Product3.png', alt: "Deluxe Twin Room" }
+		// 	
 		// ],
 		// [
 		// 	{ src: {img}, alt: "Double Room" },
@@ -43,8 +54,12 @@ const Rooms = () => {
 		// ]
 	];
 	const JumbotronDiv = styled(Jumbotron)`
-		backgroundColor: "#E6E4DC",
-		height: "400px"
+		backgroundColor: #E6E4DC;
+		// height: 400px;
+		width:95%;
+		padding:20px;
+		margin:20px
+		
 	`;
 	const TextDiv = styled.div`
 		margin-top: 100px;
@@ -82,11 +97,12 @@ const Rooms = () => {
 			height: 150px;
 		}
 	`;
-const Cell = ({ columnIndex, rowIndex, style }) => (
-	<ImgGridDiv style={style}>
+const Cell = ({ p}) => 
+(
+	<ImgGridDiv style={{display:'flex',flexDirection:'row'}}>
 		<ImgStyle
-			src={imgsArray[rowIndex][columnIndex].src}
-			alt={imgsArray[rowIndex][columnIndex].alt}
+			src={p.src}
+			alt={p.alt}
 		/>
 		{/* <CaptionDiv>
 			<p>{imgsArray[rowIndex][columnIndex].alt}</p>
@@ -98,12 +114,13 @@ const Cell = ({ columnIndex, rowIndex, style }) => (
 			id="rooms"
 			className="pt-0 pb-0"
 			fluid
+			
 		>
-			<Container className="txtali-l">
-				<Row>
+			<div className="txtali-l" style={{padding:'20px'}}>
+				<div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'start',flexWrap:'wrap'}}>
 					<Col md={{ span: 3, offset: 1 }}>
 						<TextDiv>
-							<h5 className="title">Products:</h5>
+							<h5 className="title"> Our Products:</h5>
 							<p className="text">
 								Nova Sky comprises 67 suites. Each one artfully
 								combines the ultimate in luxury, comfort and
@@ -113,21 +130,33 @@ const Cell = ({ columnIndex, rowIndex, style }) => (
 							</p>
 						</TextDiv>
 					</Col>
-					<Col md={7}>
-					<GridDiv
+					<div md={7}>
+					{/* <GridDiv
 						className="Grid"
 						columnCount={3}
 						columnWidth={200}
 						height={400}
 						rowCount={2}
 						rowHeight={200}
-						width={600}
+						width={700}
 					>
 						{Cell}
-					</GridDiv>
-					</Col>
-				</Row>
-			</Container>
+					</GridDiv> */}
+					{
+						imgsArray.map((p,idx)=>{
+							console.log(p)
+							return (
+								// <ImgStyle p={p}>
+								// </ImgStyle>
+								<img  style={{margin:'10px',height:'250px',width:'220px'}} src={p.src}/>
+								
+							)
+						})
+					}
+					</div>
+	
+			</div>
+			</div>
 		</JumbotronDiv>
 	);
 };

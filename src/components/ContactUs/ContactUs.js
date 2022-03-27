@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import img from '../../assets/leaf.png'
+import img from '../../assets/contactus.png'
 
 const ContactUs = () => {
 	const [validated, setValidated] = useState(false);
@@ -27,7 +27,7 @@ const ContactUs = () => {
 						alt=""
 						src={img}
 						width="200"
-						height="200"
+						height="250"
 						className="d-inline-block align-top"
 					/>
 				</Col>
