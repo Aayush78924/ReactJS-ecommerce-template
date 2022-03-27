@@ -17,7 +17,7 @@ const HomePage = () => (
   //   <Directory />
   // </div>
   <>
-  <div>
+  <div style={{width:'100%'}}>
 				<Row>
 					{/* <Navbar /> */}
           <Carousel />
