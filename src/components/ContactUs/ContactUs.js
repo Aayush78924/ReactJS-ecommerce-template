@@ -5,19 +5,39 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import img from '../../assets/contactus.png'
+import {firestore} from '../../firebase/firebase.utils.js'
+
 
 const ContactUs = () => {
 	const [validated, setValidated] = useState(false);
+	const [data,setData]=useState({
+		name:"",
+		email:"",
+		comment:""
+	})
 
-  const handleSubmit = event => {
+
+  const handleSubmit = async(event) => {
     const form = event.currentTarget;
+	event.preventDefault();
     if (form.checkValidity() === false) {
-      event.preventDefault();
+      alert("Please fill all the details!!!!")
       event.stopPropagation();
     }
-
+	else{
+	console.log(data)
     setValidated(true);
+	await firestore.collection('contactus').add(data)
+	.then((res)=>{
+		console.log(res)
+		alert("Thanks for you response we will get back to you shortly.")
+	}).catch("Could not save the data please try again!!")
+	}
+	setValidated(true);
   };
+  const changeHandler=(e)=>{
+		setData(pre=>{return {...pre,[e.target.name]:e.target.value}})
+  }
 
 	return (
 		<Container id="contact-us" className="mb-5 txtali-l">
@@ -39,6 +59,8 @@ const ContactUs = () => {
 								required
 								type="text"
 								placeholder="Your name"
+								name='name'
+								onChange={changeHandler}
 							/>
 							<Form.Control.Feedback  style={{margin:'2px'}} type="invalid">
              	 Please enter your name.
@@ -49,6 +71,8 @@ const ContactUs = () => {
 								required
 								type="email"
 								placeholder="Your email address"
+								name='email'
+								onChange={changeHandler}
 							/>
 							<Form.Control.Feedback  style={{margin:'2px'}} type="invalid">
              	 Please enter a valid email address.
@@ -61,6 +85,8 @@ const ContactUs = () => {
 								placeholder="Your message" 
 								as="textarea" 
 								aria-label="With textarea"
+								name='comment'
+								onChange={changeHandler}
 							/>
 							<Form.Control.Feedback  style={{margin:'2px'}} type="invalid">
              	 Please enter your message.

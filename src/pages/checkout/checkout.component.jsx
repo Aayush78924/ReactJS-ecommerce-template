@@ -207,7 +207,7 @@ const CheckoutPage = ({cartItems, total,currentUser}) =>{
 			description: desc,
 			handler: function (response) {
 				setRazorpayID(response.razorpay_payment_id);
-				placeOrder(response.razorpay_payment_id, amount);
+				// placeOrder(response.razorpay_payment_id, amount);
 				return;
 			},
 			prefill,
@@ -255,11 +255,15 @@ return (
     </Modal.Body>
     <Modal.Footer>
       <CustomButton onClick={() =>{setShow(false)}}>Cancel</CustomButton>
-      <CustomButton onClick={(e)=>{payment(e,total*100,{name:deliveryData.name,email:currentUser.email,contact:deliveryData.phone},{
-										userId: currentUser.id,
-										email: currentUser.email,
-										mobileNumber: deliveryData.phone,
-									})}}>Proceed for payment</CustomButton>
+      {
+		  currentUser!=null?<CustomButton onClick={(e)=>{payment(e,total*100,{name:deliveryData.name,email:currentUser.email,contact:deliveryData.phone},{
+			userId: currentUser.id,
+			email: currentUser.email,
+			mobileNumber: deliveryData.phone,
+		})}}>Proceed for payment</CustomButton>:
+		<CustomButton onClick={()=>{alert("Please login to move forward")}}>Proceed for payment</CustomButton>
+	  }
+	  
       
     </Modal.Footer>
     </form>
@@ -297,7 +301,7 @@ return (
     </div>
     <div>
     <CustomButton onClick={()=>{setShow(true)}}>CheckOut</CustomButton>
-    <CustomButton onClick={test}>Test</CustomButton>
+    {/* <CustomButton onClick={test}>Test</CustomButton> */}
 
     </div>
   </div>

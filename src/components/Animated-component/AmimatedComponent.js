@@ -22,7 +22,7 @@ const AmimatedComponent = () => {
     <Slide direction="left" in={counter} container={containerRef.current}>
     <div>
     <div style={{fontWeight:'500',width:'100%',fontSize:'50px',color:'white'}}>Buy your favourite Spices from us!!!!</div>
-    <div style={{width:'100%'}}><Button as={Link} to='/shop' style={{borderRadius:'0',margin:'5px',height:'50px',width:'200px'}} variant="success">Start Shopping!!!!!!!</Button></div>
+    <div style={{width:'100%'}}><Button as={Link} to='/shop'  variant="success">Start Shopping!!!!!!!</Button></div>
     <div style={{width:'100%'}}><Button as={Link} to='/signin' style={{borderRadius:'0',margin:'5px',height:'50px',width:'100px'}} variant="success">Sign Up</Button><Button as={Link} to='/signin' style={{borderRadius:'0',width:'100px',margin:'5px',height:'50px'}} variant="success">LogIn</Button>
     </div>
     </div>
