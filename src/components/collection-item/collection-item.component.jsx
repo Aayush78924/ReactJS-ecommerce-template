@@ -35,6 +35,7 @@ const CollectionItem = ({item, addItem,currentUser}) => {
 
   }
   const payment = (e, amount, name, desc, prefill, notes) => {
+    console.log(e);
 		e.preventDefault();
 		var options = {
 			key: "rzp_test_MFxacFpWLjhjtF",
@@ -47,6 +48,7 @@ const CollectionItem = ({item, addItem,currentUser}) => {
 			handler: function (response) {
 				setRazorpayID(response.razorpay_payment_id);
 				// placeOrder(response.razorpay_payment_id, amount);
+        setShow(false);
 				return;
 			},
 			prefill,
@@ -94,11 +96,15 @@ const CollectionItem = ({item, addItem,currentUser}) => {
     </Modal.Body>
     <Modal.Footer>
       <CustomButton onClick={() =>{setShow(false)}}>Cancel</CustomButton>
-      <CustomButton onClick={(e)=>{payment(e,10*100,{name:deliveryData.name,email:currentUser.email,contact:deliveryData.phone},{
-										userId: currentUser.id,
-										email: currentUser.email,
-										mobileNumber: deliveryData.phone,
-									})}}>Proceed for payment</CustomButton>
+      {
+        currentUser!=null? <CustomButton  type='submit' onClick={(e)=>{e.preventDefault();payment(e,100*price,{name:deliveryData.name,email:currentUser.email,contact:deliveryData.phone},{
+          userId: currentUser.id,
+          email: currentUser.email,
+          mobileNumber: deliveryData.phone,
+        })}}>Proceed for payment</CustomButton>:
+        <CustomButton onClick={()=>{alert("Please login to buy items!!!!!")}}>Proceed for payments</CustomButton>
+      }
+     
       
     </Modal.Footer>
     </form>
@@ -116,7 +122,7 @@ const CollectionItem = ({item, addItem,currentUser}) => {
           <span className="price"> {price} </span>
           
         </div>
-        <CustomButton className='custom-button custom-button2' onClick={(e)=>{payment(e,)}} inverted>BuyNow</CustomButton>
+        <CustomButton className='custom-button custom-button2' onClick={()=>{setShow(true)}} inverted >BuyNow</CustomButton>
         <CustomButton onClick={ () =>  addItem(item)} inverted>Add to cart</CustomButton>
         
       </div>

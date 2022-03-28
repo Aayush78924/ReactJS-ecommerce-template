@@ -8,7 +8,7 @@ import img7 from '../../assets/Product7.PNG'
 const SHOP_DATA = [
   {
     id: 1,
-    title: "Malsala",
+    title: "Masala",
     routeName: "Masala",
     items: [
       {
