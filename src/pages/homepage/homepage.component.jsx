@@ -19,16 +19,16 @@ const HomePage = () => (
   //   <Directory />
   // </div>
   <>
-  <div style={{width:'100%'}}>
-				<Row>
+  <div style={{width:'100%',paddin:'5px'}}>
 					{/* <Navbar /> */}
-          
+          <center>
           <Carousel />
           <AnimatedComponent/>
           <AboutUs />
           <Rooms />
           <ContactUs />
-				</Row>
+          </center>
+				
 			</div>
   </>
 
