@@ -7,7 +7,7 @@ import './collection-preview.styles.scss';
 const CollectionPreview = ({ title, items }) => (
     <div className='collection-preview' >
         <h1 className='title'>{title.toUpperCase()}</h1>
-        <div className='preview'>
+        <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap',width:'100vw',justifyContent:'center'}}>
             {items
                 // .filter((item, idx) => idx < 4 )
                 .map((item) => (

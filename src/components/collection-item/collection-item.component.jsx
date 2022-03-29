@@ -110,7 +110,7 @@ const CollectionItem = ({item, addItem,currentUser}) => {
     </form>
   </Modal>
 
-      <div className="collection-item">
+      <div className="collection-item shadow" >
         <div
           className="image"
           style={{

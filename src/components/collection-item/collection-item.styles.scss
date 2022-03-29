@@ -1,11 +1,13 @@
 .collection-item {
-  width: 22%;
+  width: 300px;
   display: flex;
   flex-direction: column;
-  height: 380px;
+  height: 450px;
   margin:8px;
   align-items: center;
   position: relative;
+  padding:10px;
+
 
   .image {
     width: 100%;
@@ -49,6 +51,7 @@
     display: flex;
     justify-content: space-between;
     font-size: 18px;
+    padding:5px;
 
     .name {
       width: 90%;
