@@ -8,17 +8,17 @@ import './sign-in-sign-up.styles.scss';
 
 const SignInAndSignUp = () => (
     <Container >
-        <SignIn />
-        <SignUp />
+        <SignIn/>
+        <SignUp/>
     </Container>
 )
 
 const Container=styled.div`
 display:flex;
 flex-wrap: wrap;
-justify-content:space-between;
-padding:50px;
+justify-content:center;
 flex-wrap: wrap;
+
 
 @media (max-width: 500px)
 {

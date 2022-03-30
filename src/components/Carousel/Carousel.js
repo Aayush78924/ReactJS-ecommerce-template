@@ -27,48 +27,27 @@ const carousel = () => {
         <Carousel.Item interval={5000}>
             <img src={img4} style={{height:'73vh',width:'100%'}}/>
             <Carousel.Caption>
- 	 <div style={{ position: 'relative',
-   bottom: '100px',
-   fontSize:'3em',
-   fontWeight:'100',
-   left: '5%',
-   zIndex: '20',
-   color: 'white'
-  }}>No additives
+ 	 <TextDiv>No additives
   <p style={{fontSize:'30px'}}>We do not use any additives to give our spice extra taste and colour!!!!!</p>
-  </div>
+  </TextDiv>
       
      </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item interval={5000}>
             <img src={img5}  style={{height:'73vh',width:'100%'}}/>
             <Carousel.Caption>
- 	 <div style={{ position: 'relative',
-   bottom: '100px',
-   fontSize:'3em',
-   fontWeight:'100',
-   left: '5%',
-   zIndex: '20',
-   color: 'white'
-  }}>Fastest home Delivery
+ 	 <TextDiv>Fastest home Delivery
   <p style={{fontSize:'30px'}}>We do not use any additives to give our spice extra taste and colour!!!!!</p>
-  </div>
+  </TextDiv>
       
      </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item interval={5000}>
             <img src={img6}  style={{height:'73vh',width:'100%'}}/>
             <Carousel.Caption>
- 	 <div style={{ position: 'relative',
-   bottom: '100px',
-   fontSize:'3em',
-   fontWeight:'100',
-   left: '5%',
-   zIndex: '20',
-   color: 'white'
-  }}>Spice King
+ 	 <TextDiv>Spice King
   <p style={{fontSize:'30px'}}>Now all your spices available at your soor step!!!!!!!</p>
-  </div>
+  </TextDiv>
       
      </Carousel.Caption>
         </Carousel.Item>
@@ -179,3 +158,18 @@ const carousel = () => {
 };
 
 export default carousel;
+
+const TextDiv=styled.div`
+   position: relative;
+   bottom: 100px;
+   font-size:6em;
+   font-weight:150;
+//    left: 5%;
+   font-family:Archivo Black;
+   text-shadow: 4px 4px 4px black;
+   z-index: '20';
+   color: 'white';
+   @media screen and (max-width: 600px) {
+       font-size:3em;
+   }
+`
