@@ -23,7 +23,7 @@ const AmimatedComponent = () => {
       <div>
       <div style={{fontWeight:'500',width:'100%',fontSize:'3em',color:'white'}}>Buy your favourite Spices from us!!!!</div>
       <div style={{width:'100%'}}><Button as={Link} style={{margin:'5px'}} to='/shop'  variant="success">Start Shopping!!!!!!!</Button></div>
-      <div style={{width:'100%'}}><Button as={Link} style={{margin:'5px'}} to='/signin'  variant="success">Sign Up</Button><Button as={Link} style={{margin:'5px'}} to='/signin' variant="success">LogIn</Button>
+      <div style={{width:'100%'}}><Button as={Link} style={{margin:'5px',width:'120px'}} to='/signin'  variant="success">Sign Up</Button><Button as={Link} style={{margin:'5px',width:'120px'}} to='/signin' variant="success">LogIn</Button>
       </div>
       </div>
       </Slide></div>:null
@@ -31,7 +31,7 @@ const AmimatedComponent = () => {
       {counter%10!=0?
       <div><Grow in={counter} style={{ transformOrigin: '0 0 0' }}
       {...(counter ? { timeout: 1000 } : {})}>
-          <Img src={img} style={{height:'300px'}}></Img>
+          <Img src={img} style={{height:'350px'}}></Img>
       </Grow>
       </div>
       :<div style={{height:'300px'}}></div>}
