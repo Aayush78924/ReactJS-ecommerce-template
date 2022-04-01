@@ -2,11 +2,14 @@ import React,{useState} from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useHistory } from "react-router-dom";
-import { saveUserData } from "../../redux/user/userDataReducer";
+import 'react-toastify/dist/ReactToastify.css';
+
+// import { saveUserData } from "../../redux/user/userDataReducer";
+import { clearCart } from "../../redux/cart/cart.actions";
 import { selectCurrentUser } from '../../redux/user/user.selector.js';
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors'
 import CheckoutItem from '../../components/checkout-item/checkout-item.component'
-import { toast } from "react-toastify";
+import { toast,ToastContainer } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 // import { collection, doc, setDoc,getDoc,updateDoc } from "firebase/firestore"; 
 import {firestore} from '../../firebase/firebase.utils.js'
@@ -16,7 +19,7 @@ import axios from 'axios'
 import './checkout.styles.scss';
 import FormInput from '../../components/form-input/form-input.component';
 
-const CheckoutPage = ({cartItems, total,currentUser}) =>{ 
+const CheckoutPage = ({cartItems, total,currentUser,clearCart}) =>{ 
 	const dispatch = useDispatch();
 
 	const history = useHistory();
@@ -28,6 +31,7 @@ const CheckoutPage = ({cartItems, total,currentUser}) =>{
   })
 
   const handleChange=(e)=>{
+	console.log(currentUser)
     let name=e.target.name;
     let value=e.target.value;
     setDeliveryData((pre)=>{
@@ -55,15 +59,16 @@ const CheckoutPage = ({cartItems, total,currentUser}) =>{
 		let orderSD={};
 		await firestore.collection('Admin').where("__name__",'==','doc1').get().then(res=>{orderSD=res.docs[0]})
 		cartItems.forEach((p) => {
+			console.log(p)
 			orderArr.push({
-				name: p.heading + " - " + p.Selectedsize,
-				sku: p.productID,
-				size: p.Selectedsize,
-				units: p.Selectedquantity,
-				selling_price: p.offerPrice,
+				name: p.name,
+				sku: p.id,
+				// size: p.Selectedsize,
+				units: p.quantity,
+				selling_price: p.price,
 				// discount: "",
 				tax: "",
-				hsn: orderSD.hsn
+				hsn: 0
 			});
 		});
 		let oid = makeid(5);
@@ -71,19 +76,19 @@ const CheckoutPage = ({cartItems, total,currentUser}) =>{
 		let req = {
 			order_id: oid,
 			order_date: date_format.getDate() + "-" + date_format.getMonth() + "-" + date_format.getFullYear(),
-			pickup_location: orderSD.pickUpLocation,
-			channel_id: orderSD.channelID,
+			pickup_location: "Primary",
+			channel_id:"",
 			// comment: details?.comment ? details.comment : "",
 			billing_customer_name: deliveryData.name,
 			billing_last_name: "",
 			billing_address: deliveryData.address1,
 			billing_address_2: deliveryData.address2,
 			billing_city: deliveryData.city,
-			billing_pincode: deliveryData.zipCode,
+			billing_pincode: deliveryData.pincode,
 			billing_state: deliveryData.state,
 			billing_country: deliveryData.country,
 			billing_email: currentUser.email,
-			billing_phone: deliveryData.mnum,
+			billing_phone: deliveryData.phone,
 			shipping_is_billing: true,
 			shipping_customer_name: "",
 			shipping_last_name: "",
@@ -100,12 +105,12 @@ const CheckoutPage = ({cartItems, total,currentUser}) =>{
 			shipping_charges: 0,
 			giftwrap_charges: 0,
 			transaction_charges: 0,
-			// total_discount: 0,
+			total_discount: 0,
 			sub_total: amount / 100,
-			length: orderSD.length,
-			breadth: orderSD.breadth,
-			height: orderSD.height,
-			weight: orderSD.weight
+			length: 1,
+			breadth: 1,
+			height: 1,
+			weight: 2
 		};
 		// await fetch("https://apiv2.shiprocket.in/v1/external/auth/login", {
 		// 	method: "POST",
@@ -113,9 +118,9 @@ const CheckoutPage = ({cartItems, total,currentUser}) =>{
 		// 	cache: "no-cache",
 		// 	headers: {
 		// 		"Content-Type": "application/json",
-		// 		// "Access-Control-Allow-Origin": "*",
-		// 		// "Access-Control-Allow-Credentials":true,
-		// 		// "Access-Control-Allow-Methods": "POST",
+		// 		"Access-Control-Allow-Origin": "*",
+		// 		"Access-Control-Allow-Credentials":true,
+		// 		"Access-Control-Allow-Methods": "POST",
 		// 	},
 		// 	body: JSON.stringify({
 		// 		// email: orderSD.username,
@@ -124,9 +129,10 @@ const CheckoutPage = ({cartItems, total,currentUser}) =>{
 		// 		password:'Kushagra.1'
 		// 	})
 		// })
-		await axios.post('https://apiv2.shiprocket.in/v1/external/auth/login',JSON.stringify({email:'q.ashok@gmail.com',
-				password:'Kushagra.1'}),{'Content-Type':'application/json'})
+		await axios.post('https://apiv2.shiprocket.in/v1/external/auth/login',{email:'shiprocketspiuser1@gmail.com',
+				password:'shiprocket@123'})
 			.then(async (val) => {
+				console.log(val)
 				// await fetch("https://apiv2.shiprocket.in/v1/external/orders/create/adhoc", {
 				// 	method: "POST",
 				// 	mode: "no-cors",
@@ -136,15 +142,16 @@ const CheckoutPage = ({cartItems, total,currentUser}) =>{
 				// 		"Access-Control-Allow-Origin": "*",
 				// 		"Access-Control-Allow-Credentials":true,
 				// 		"Access-Control-Allow-Methods": "POST",
-				// 		Authorization': "Bearer " + val.token
+				// 		Authorization: "Bearer "+val.data.token
 				// 	},
 				// 	body: JSON.stringify(req)
-				// })
-				await axios.post('https://apiv2.shiprocket.in/v1/external/orders/create/adhoc',req)
+				// }).then(res=>res.json())
+				console.log(req)
+				await axios.post('https://apiv2.shiprocket.in/v1/external/orders/create/adhoc',req,{headers:{Authorization: 'Bearer '+val.data.token}})
 					.then(async (r) => {
 						let values = {
-							order_id: r.order_id,
-							shipment_id: r.shipment_id,
+							order_id: r.data.order_id,
+							shipment_id: r.data.shipment_id,
 							orderItems: orderArr,
 							// discount: subtotalPrice - totalOrderPrice(),
 							totalValue: amount / 100,
@@ -155,36 +162,61 @@ const CheckoutPage = ({cartItems, total,currentUser}) =>{
 							date: date_format.getDate() + "-" + date_format.getMonth() + "-" + date_format.getFullYear()
 						};
 						let user={};
-						await firestore.collection("Users").doc(currentUser?.email).then(res=>{
+						
+						await firestore.collection("users").where('__name__','==',currentUser?.id).get().then(res=>{
+							console.log(res.docs)
 							user=res.docs[0].data();
 						})
 						let ordersList;
 						if(user.orders==undefined)
-						{
+						{	console.log("undefined")
 							ordersList=[];
-						}
-						else{
-							ordersList=[user.orders];
-						}
-						await firestore.collection('Users').where("email",'==',currentUser.email).update(
-							{
-							
-							orders: [ordersList, values],
-							cart: []
-						})
-							.then(() => {
-								dispatch(saveUserData({ ...currentUser, orders: [...currentUser.orders, values], cart: [] }));
+							ordersList.push(values)
+							await firestore.collection('users').doc(currentUser?.id).update(
+								{
+								...user,
+								orders:ordersList,
+							}).then(() => {
+								// dispatch(saveUserData({ ...currentUser, orders: [...currentUser.orders, values], cart: [] }));
 								toast.success("OrderPlaced Successfully.");
-								toast.success("OrderID " + r.order_id);
+								toast.success("OrderID " + r.data.order_id);
 								history.push("/");
-							})
-							.catch(() => {
+							}).catch(() => {
 								toast.error("Failed to updated user data.");
 								toast.error("Please note this payment ID for any issue " + razorpay_id);
-								toast.error("Please note this order ID for any issue " + r.order_id);
+								toast.error("Please note this order ID for any issue " + r.data.order_id);
 							});
+						}
+						else{
+							console.log("Defined")
+							ordersList=[...user.orders];
+							ordersList.push(values);
+							console.log({
+								...user,
+								orders:ordersList,
+							})
+							await firestore.collection('users').doc(currentUser?.id).update(
+								{
+								...user,
+								orders:ordersList,
+							}).then(() => {
+								// dispatch(saveUserData({ ...currentUser, orders: [...currentUser.orders, values], cart: [] }));
+								toast.success("OrderPlaced Successfully.");
+								toast.success("OrderID " + r.data.order_id);
+								history.push("/");
+							}).catch(() => {
+								toast.error("Failed to updated user data.");
+								toast.error("Please note this payment ID for any issue " + razorpay_id);
+								toast.error("Please note this order ID for any issue " + r.data.order_id);
+							});
+						}
+
+						
+							
+							
 					})
 					.catch((err) => {
+						console.log(err)
 						toast.error("Something went wrong" + err);
 						toast.error("Please note this payment ID for any issue " + razorpay_id);
 					});
@@ -193,6 +225,7 @@ const CheckoutPage = ({cartItems, total,currentUser}) =>{
 				toast.error("Something went wrong" + err);
 				toast.error("Please note this payment ID for any issue " + razorpay_id);
 			});
+			clearCart();
 	};
 
   const payment = (e, amount, name, desc, prefill, notes) => {
@@ -207,7 +240,7 @@ const CheckoutPage = ({cartItems, total,currentUser}) =>{
 			description: desc,
 			handler: function (response) {
 				setRazorpayID(response.razorpay_payment_id);
-				// placeOrder(response.razorpay_payment_id, amount);
+				placeOrder(response.razorpay_payment_id, amount);
 				return;
 			},
 			prefill,
@@ -232,11 +265,20 @@ const CheckoutPage = ({cartItems, total,currentUser}) =>{
 		});
 	};
 
+	const checkOut=()=>{
+		if(cartItems.length>0)
+		{
+			setShow(true)
+		}
+		else{
+			toast.error("Please add items in cart.The cart is empty")
+		}
+	}
 
   
 return (
   <>
-
+	<ToastContainer/>
   <Modal show={show} onHide={()=>{setShow(false)}}>
     <Modal.Header closeButton>
       <Modal.Title>Fill  the details</Modal.Title>
@@ -250,8 +292,10 @@ return (
       <FormInput onChange={handleChange} name='email' required type='email' placeholder='email'/>
       <FormInput onChange={handleChange} name='city' required placeholder='city'/>
       <FormInput onChange={handleChange} name='state' required placeholder='state'/>
+      <FormInput onChange={handleChange} name='country' type='text' required placeholder='country'/>
       <FormInput onChange={handleChange} name='pincode' type='number' required placeholder='PIN CODE'/>
-      {/* <FormInput placeholder='Name'/> */}
+      
+	  {/* <FormInput placeholder='Name'/> */}
     </Modal.Body>
     <Modal.Footer>
       <CustomButton onClick={() =>{setShow(false)}}>Cancel</CustomButton>
@@ -300,8 +344,8 @@ return (
         <span>TOTAL: ${total}</span>
     </div>
     <div>
-    <CustomButton onClick={()=>{setShow(true)}}>CheckOut</CustomButton>
-    {/* <CustomButton onClick={test}>Test</CustomButton> */}
+    <CustomButton onClick={checkOut}>CheckOut</CustomButton>
+    <CustomButton  style={{margin:'2px'}}onClick={clearCart}>Clear Cart</CustomButton>
 
     </div>
   </div>
@@ -314,5 +358,8 @@ const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
     
 })
+const mapDispatchToProps = dispatch => ({
+    clearCart: () => dispatch(clearCart())
+})
 
-export default connect(mapStateToProps)(CheckoutPage);
+export default connect(mapStateToProps,mapDispatchToProps)(CheckoutPage);
