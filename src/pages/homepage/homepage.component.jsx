@@ -7,6 +7,7 @@ import AboutUs from "../../components/AboutUs/AboutUs";
 import Rooms from "../../components/Rooms/Rooms";
 import ContactUs from "../../components/ContactUs/ContactUs";
 import SimpleReactFooter from "simple-react-footer";
+import Footer from "./Footer"
 // import AnimatedComponent from "../components/Animated-component/AnimatedComponent";
 import AnimatedComponent from "../../components/Animated-component/AmimatedComponent"
 // import "bootstrap/dist/css/bootstrap.min.css";
@@ -66,7 +67,7 @@ return (
   //   <Directory />
   // </div>
   <>
-  <div style={{width:'100%',paddin:'5px'}}>
+  <div style={{width:'100%',padding:'5px'}}>
 					{/* <Navbar /> */}
           <center>
           <Carousel />
@@ -76,7 +77,10 @@ return (
           <ContactUs />
           
           </center>
+          <Footer/>
+          {/* <div style={{width:'100%'}}>
           <SimpleReactFooter 
+          style={{width:"100vw"}}
     description={description} 
     title={title}
     columns={columns}
@@ -91,7 +95,9 @@ return (
     backgroundColor="bisque"
     fontColor="black"
     copyrightColor="darkgrey"
+    
  />
+ </div> */}
 				
 			</div>
   </>
